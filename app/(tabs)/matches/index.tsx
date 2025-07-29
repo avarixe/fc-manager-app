@@ -2,11 +2,11 @@ import { ThemedText } from '@/components/ThemedText';
 import { ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-export default function SettingsScreen() {
+export default function MatchesScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ThemedText type="title">
-        Settings
+        Matches
       </ThemedText>
     </ScrollView>
   );

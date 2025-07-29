@@ -1,44 +1,40 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import { useUnistyles } from 'react-native-unistyles';
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function TabLayout() {
-  const { theme } = useUnistyles();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarInactiveTintColor: theme.colors.tint,
-        tabBarActiveTintColor: theme.colors.activeTint,
-        sceneStyle: {
-          backgroundColor: theme.colors.background
-        },
-        tabBarStyle: {
-          backgroundColor: theme.colors.foreground
-        },
         headerShown: false,
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Playlist',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="music.house" color={color} />,
+          title: 'Dashboard',
+          tabBarIcon: ({ color }) => <Icon size={28} name="view-dashboard" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="players/[songId]"
+        name="players"
         options={{
-          title: 'Player',
-          tabBarIcon: ({ color }) => <IconSymbol size={24} name="play.circle" color={color} />,
+          title: 'Players',
+          tabBarIcon: ({ color }) => <Icon size={24} name="run" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="matches"
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="gear.circle" color={color} />,
+          title: 'Matches',
+          tabBarIcon: ({ color }) => <Icon size={24} name="soccer-field" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="[season]"
+        options={{
+          title: 'Season',
+          tabBarIcon: ({ color }) => <Icon size={28} name="calendar" color={color} />,
         }}
       />
     </Tabs>

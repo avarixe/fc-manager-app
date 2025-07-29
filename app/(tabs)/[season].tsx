@@ -2,11 +2,11 @@ import { ThemedText } from '@/components/ThemedText';
 import { ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-export default function PlayerScreen() {
+export default function SeasonScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ThemedText type="title">
-        Player
+        Season
       </ThemedText>
     </ScrollView>
   );

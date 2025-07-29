@@ -2,11 +2,11 @@ import { ThemedText } from '@/components/ThemedText';
 import { ScrollView } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-export default function SettingsThemeScreen() {
+export default function PlayersScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ThemedText type="title">
-        Change theme
+        Players
       </ThemedText>
     </ScrollView>
   );

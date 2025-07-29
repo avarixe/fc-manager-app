@@ -1,13 +1,11 @@
-import { ThemedText } from '@/components/ThemedText';
-import { ScrollView } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { ThemedText } from "@/components/ThemedText";
+import { ScrollView } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
 
 export default function DashboardScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ThemedText type="title">
-        Dashboard
-      </ThemedText>
+      <ThemedText type="title">Dashboard</ThemedText>
     </ScrollView>
   );
 }

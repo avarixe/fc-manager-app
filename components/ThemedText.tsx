@@ -1,11 +1,12 @@
-import { Text, type TextProps } from 'react-native';
-import { StyleSheet, UnistylesVariants } from 'react-native-unistyles';
+import { Text, type TextProps } from "react-native";
+import { StyleSheet, UnistylesVariants } from "react-native-unistyles";
 
-export type ThemedTextProps = TextProps & UnistylesVariants<typeof styles> & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
-};
+export type ThemedTextProps = TextProps &
+  UnistylesVariants<typeof styles> & {
+    lightColor?: string;
+    darkColor?: string;
+    type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
+  };
 
 export function ThemedText({
   style,
@@ -14,18 +15,9 @@ export function ThemedText({
   type,
   ...rest
 }: ThemedTextProps) {
-  styles.useVariants({ type })
+  styles.useVariants({ type });
 
-  return (
-    <Text
-      style={[
-        styles.textColor,
-        styles.textType,
-        style,
-      ]}
-      {...rest}
-    />
-  );
+  return <Text style={[styles.textColor, styles.textType, style]} {...rest} />;
 }
 
 const styles = StyleSheet.create((theme, rt) => ({
@@ -42,23 +34,23 @@ const styles = StyleSheet.create((theme, rt) => ({
         defaultSemiBold: {
           fontSize: 16,
           lineHeight: 24,
-          fontWeight: '600',
+          fontWeight: "600",
         },
         title: {
           fontSize: 32,
-          fontWeight: 'bold',
+          fontWeight: "bold",
           lineHeight: 32,
         },
         subtitle: {
           fontSize: 20,
-          fontWeight: 'bold',
+          fontWeight: "bold",
         },
         link: {
           lineHeight: 30,
           fontSize: 16,
           color: theme.colors.link,
         },
-      }
-    }
-  }
+      },
+    },
+  },
 }));

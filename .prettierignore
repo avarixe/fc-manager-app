@@ -3,3 +3,4 @@ android
 README.md
 .vscode
 .expo
+database-generated.types.ts

@@ -1,16 +1,22 @@
+import { teamAtom } from "@/atoms";
 import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { useAtomValue } from "jotai";
 import React from "react";
-import "react-native-reanimated";
 
-export default function RootLayout() {
+export default function AppLayout() {
+  const team = useAtomValue(teamAtom);
+
   return (
-    <React.Fragment>
-      <Stack>
+    <Stack>
+      <Stack.Protected guard={!!team}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </React.Fragment>
+      </Stack.Protected>
+
+      <Stack.Screen
+        name="select-team"
+        options={{ title: "Select Team", headerTitleAlign: "center" }}
+      />
+      <Stack.Screen name="team-form" options={{ headerShown: false }} />
+    </Stack>
   );
 }

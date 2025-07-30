@@ -1,15 +1,17 @@
 import { sessionAtom } from "@/atoms";
 import { supabase } from "@/utils/supabase";
 import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { Provider as JotaiProvider, useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import "react-native-reanimated";
 
 export default function Root() {
   return (
     <JotaiProvider>
       <RootNavigator />
     </JotaiProvider>
-  )
+  );
 }
 
 function RootNavigator() {
@@ -32,7 +34,6 @@ function RootNavigator() {
     };
   }, [setSession]);
 
-
   if (!ready) {
     SplashScreen.hideAsync();
   }
@@ -46,6 +47,8 @@ function RootNavigator() {
       <Stack.Protected guard={!session}>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
       </Stack.Protected>
+
+      <StatusBar style="auto" />
     </Stack>
-  )
-};
+  );
+}

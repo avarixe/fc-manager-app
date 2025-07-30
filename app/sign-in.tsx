@@ -1,31 +1,34 @@
-import { supabase } from '@/utils/supabase';
-import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
-import { View } from 'react-native';
+import { supabase } from "@/utils/supabase";
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
+import { View } from "react-native";
 
 export default function SignIn() {
   GoogleSignin.configure({
-    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+    scopes: ["https://www.googleapis.com/auth/drive.readonly"],
     webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID,
-  })
-
+  });
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
         onPress={async () => {
           try {
-            await GoogleSignin.hasPlayServices()
-            const userInfo = await GoogleSignin.signIn()
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
             if (userInfo.data?.idToken) {
               const { data, error } = await supabase.auth.signInWithIdToken({
-                provider: 'google',
+                provider: "google",
                 token: userInfo.data.idToken,
-              })
-              console.log(error, data)
+              });
+              console.log(error, data);
             } else {
-              throw new Error('no ID token present!')
+              throw new Error("no ID token present!");
             }
           } catch (error: any) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -37,7 +40,6 @@ export default function SignIn() {
             } else {
               // some other error happened
             }
-            console.error(error);
           }
         }}
       />

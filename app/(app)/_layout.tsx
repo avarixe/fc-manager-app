@@ -1,4 +1,5 @@
 import { teamAtom } from "@/atoms";
+import SettingsButton from "@/components/navigation/settings-button";
 import { Stack } from "expo-router";
 import { useAtomValue } from "jotai";
 import React from "react";
@@ -14,9 +15,30 @@ export default function AppLayout() {
 
       <Stack.Screen
         name="select-team"
-        options={{ title: "Select Team", headerTitleAlign: "center" }}
+        options={{
+          title: "Select Team",
+          headerTitleAlign: "center",
+          headerBackVisible: false,
+          gestureEnabled: false,
+          headerRight: () => <SettingsButton />,
+        }}
       />
-      <Stack.Screen name="team-form" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="team-form"
+        options={{
+          title: "Team",
+          headerTitleAlign: "center",
+          presentation: "modal",
+        }}
+      />
+      <Stack.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          headerTitleAlign: "center",
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 }

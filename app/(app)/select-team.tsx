@@ -1,12 +1,17 @@
 import { teamAtom } from "@/atoms";
+import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
+import { Divider } from "@/components/ui/divider";
+import { Heading } from "@/components/ui/heading";
+import { Icon } from "@/components/ui/icon";
+import { Text } from "@/components/ui/text";
 import { Tables } from "@/database-generated.types";
 import { formatDate } from "@/utils/format";
 import { supabase } from "@/utils/supabase";
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { useRouter } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { useSetAtom } from "jotai";
+import { CirclePlus, Shield } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, TouchableOpacity, View } from "react-native";
 
 export default function SelectTeamScreen() {
   const [teams, setTeams] = useState<Tables<"teams">[]>([]);
@@ -26,39 +31,72 @@ export default function SelectTeamScreen() {
     fetchTeams();
   }, []);
 
+  const navigation = useNavigation();
+  useEffect(() => {
+    const listener = navigation.addListener("beforeRemove", (e) => {
+      if (e.data.action.type === "GO_BACK") {
+        e.preventDefault();
+      }
+    });
+
+    return () => {
+      navigation.removeListener("beforeRemove", listener);
+    };
+  }, [navigation]);
+
   const setTeam = useSetAtom(teamAtom);
-  const router = useRouter();
   const onPressTeam = (team: Tables<"teams">) => {
     setTeam(team);
     router.push("/");
   };
 
+  const renderItem = ({ item }: { item: Tables<"teams"> }) => (
+    <TouchableOpacity onPress={() => onPressTeam(item)}>
+      <View className="flex-row items-center gap-4 p-4">
+        {item.badge_path ? (
+          <Image
+            source={{ uri: item.badge_path }}
+            className="w-12 h-12 rounded-full"
+          />
+        ) : (
+          <Icon as={Shield} className="w-12 h-12" />
+        )}
+        <View className="flex-col">
+          <Heading size="lg">{item.name}</Heading>
+          <Text>
+            {item.manager_name} · {formatDate(item.created_at)}
+          </Text>
+          <Text>
+            {formatDate(item.started_on, "yyyy")} -{" "}
+            {formatDate(item.currently_on, "yyyy")}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+
+  // TODO: use Skeleton in Empty State
+
   return (
-    <ScrollView>
-      {teams.map((team) => (
-        <TouchableOpacity key={team.id} onPress={() => onPressTeam(team)}>
-          <View key={team.id} className="flex-row items-center">
-            {team.badge_path ? (
-              <Image
-                source={{ uri: team.badge_path }}
-                className="w-12 h-12 rounded-full"
-              />
-            ) : (
-              <Icon name="shield-half-full" size={24} />
-            )}
-            <View className="flex-col">
-              <Text>{team.name}</Text>
-              <Text>
-                {team.manager_name} · {formatDate(team.created_at)}
-              </Text>
-              <Text>
-                {formatDate(team.started_on, "yyyy")} -{" "}
-                {formatDate(team.currently_on, "yyyy")}
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+    <FlatList
+      data={teams}
+      renderItem={renderItem}
+      keyExtractor={(item) => String(item.id)}
+      ItemSeparatorComponent={() => <Divider />}
+      ListFooterComponent={
+        <>
+          <Divider />
+          <Button
+            onPress={() => router.push("/team-form")}
+            variant="outline"
+            size="lg"
+            className="mx-8 my-4"
+          >
+            <ButtonIcon as={CirclePlus} />
+            <ButtonText>Add Team</ButtonText>
+          </Button>
+        </>
+      }
+    />
   );
 }

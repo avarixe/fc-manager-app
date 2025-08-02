@@ -1,9 +1,9 @@
-import { ScrollView, Text } from "react-native";
+import { Text, View } from "react-native";
 
 export default function MatchesScreen() {
   return (
-    <ScrollView>
+    <View>
       <Text>Matches</Text>
-    </ScrollView>
+    </View>
   );
 }

@@ -11,7 +11,7 @@ import "react-native-reanimated";
 export default function Root() {
   return (
     <JotaiProvider>
-      <GluestackUIProvider mode="dark">
+      <GluestackUIProvider>
         <RootNavigator />
       </GluestackUIProvider>
     </JotaiProvider>

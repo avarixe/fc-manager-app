@@ -1,9 +1,9 @@
-import { ScrollView, Text } from "react-native";
+import { Text, View } from "react-native";
 
 export default function PlayersScreen() {
   return (
-    <ScrollView>
+    <View>
       <Text>Players</Text>
-    </ScrollView>
+    </View>
   );
 }

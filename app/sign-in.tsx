@@ -1,3 +1,4 @@
+import { Heading } from "@/components/ui/heading";
 import { supabase } from "@/utils/supabase";
 import {
   GoogleSignin,
@@ -13,7 +14,10 @@ export default function SignIn() {
   });
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View className="flex-1 justify-center items-center">
+      <Heading size="2xl" className="mb-4">
+        MyFC Manager
+      </Heading>
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}

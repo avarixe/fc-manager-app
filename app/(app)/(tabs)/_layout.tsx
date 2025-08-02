@@ -1,13 +1,20 @@
+import { teamAtom } from "@/atoms";
+import SettingsButton from "@/components/navigation/settings-button";
+import { Icon } from "@/components/ui/icon";
 import { Tabs } from "expo-router";
+import { useAtomValue } from "jotai";
+import { Calendar, LayoutDashboard, Swords, User } from "lucide-react-native";
 import React from "react";
 
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-
 export default function TabLayout() {
+  const team = useAtomValue(teamAtom);
+
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
+        headerTitle: team?.name,
+        headerTitleAlign: "center",
+        headerRight: () => <SettingsButton />,
       }}
     >
       <Tabs.Screen
@@ -15,7 +22,7 @@ export default function TabLayout() {
         options={{
           title: "Dashboard",
           tabBarIcon: ({ color }) => (
-            <Icon size={28} name="view-dashboard" color={color} />
+            <Icon as={LayoutDashboard} color={color} />
           ),
         }}
       />
@@ -23,27 +30,21 @@ export default function TabLayout() {
         name="players"
         options={{
           title: "Players",
-          tabBarIcon: ({ color }) => (
-            <Icon size={24} name="run" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Icon as={User} color={color} />,
         }}
       />
       <Tabs.Screen
         name="matches"
         options={{
           title: "Matches",
-          tabBarIcon: ({ color }) => (
-            <Icon size={24} name="soccer-field" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Icon as={Swords} color={color} />,
         }}
       />
       <Tabs.Screen
         name="[season]"
         options={{
           title: "Season",
-          tabBarIcon: ({ color }) => (
-            <Icon size={28} name="calendar" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Icon as={Calendar} color={color} />,
         }}
       />
     </Tabs>

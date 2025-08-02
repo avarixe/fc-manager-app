@@ -1,9 +1,9 @@
-import { ScrollView, Text } from "react-native";
+import { Text, View } from "react-native";
 
 export default function DashboardScreen() {
   return (
-    <ScrollView>
+    <View>
       <Text>Dashboard</Text>
-    </ScrollView>
+    </View>
   );
 }

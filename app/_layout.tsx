@@ -1,4 +1,5 @@
 import { sessionAtom } from "@/atoms";
+import "@/global.css";
 import { supabase } from "@/utils/supabase";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";

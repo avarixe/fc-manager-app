@@ -1,6 +1,6 @@
 {
   "name": "unistyles-tutorial",
-  "main": "expo-router/entry",
+  "main": "index.ts",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
@@ -12,17 +12,10 @@
     "prepare": "husky",
     "precommit": "bun run tsc && lint-staged",
     "db:login": "npx supabase login",
-    "db:generate": "dotenv cross-var npx supabase gen types typescript --project-id %SUPABASE_PROJECT_ID% --schema public > database-generated.types.ts",
-    "gs:add": "npx gluestack-ui@latest add"
+    "db:generate": "dotenv cross-var npx supabase gen types typescript --project-id %SUPABASE_PROJECT_ID% --schema public > database-generated.types.ts"
   },
   "dependencies": {
     "@expo/html-elements": "^0.4.2",
-    "@gluestack-ui/button": "^1.0.14",
-    "@gluestack-ui/divider": "^0.1.10",
-    "@gluestack-ui/icon": "^0.1.27",
-    "@gluestack-ui/nativewind-utils": "^1.0.26",
-    "@gluestack-ui/overlay": "^0.1.22",
-    "@gluestack-ui/toast": "^1.0.9",
     "@react-native-async-storage/async-storage": "2.1.2",
     "@react-native-google-signin/google-signin": "^15.0.0",
     "@react-native-vector-icons/material-design-icons": "^12.2.0",
@@ -50,11 +43,13 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
+    "react-native-edge-to-edge": "^1.7.0",
     "react-native-gesture-handler": "~2.24.0",
-    "react-native-reanimated": "~3.17.4",
+    "react-native-nitro-modules": "^0.30.2",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
-    "react-native-svg": "^15.12.1",
+    "react-native-svg": "^15.14.0",
+    "react-native-unistyles": "^3.0.15",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5"
@@ -71,9 +66,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.5.11",
     "supabase": "^2.33.4",
-    "tailwindcss": "^3.4.17",
     "typescript": "~5.8.3"
   },
   "lint-staged": {

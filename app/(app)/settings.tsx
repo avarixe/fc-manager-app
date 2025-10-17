@@ -1,11 +1,11 @@
 import { sessionAtom, teamAtom } from "@/atoms";
-import { Divider } from "@/components/ui/divider";
-import { Icon } from "@/components/ui/icon";
+import { Row, Spacer } from "@/components/ui";
 import { supabase } from "@/utils/supabase";
 import { router } from "expo-router";
 import { useAtom, useSetAtom } from "jotai";
 import { ChevronRight, LogOut, ShieldEllipsis } from "lucide-react-native";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
 
 export default function SettingsModal() {
   const setSession = useSetAtom(sessionAtom);
@@ -23,23 +23,39 @@ export default function SettingsModal() {
   // TODO: Space between sections
 
   return (
-    <ScrollView className="my-4">
+    <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity onPress={() => router.push("/select-team")}>
-        <View className="flex-row items-center gap-4 p-4">
-          <Icon as={ShieldEllipsis} className="w-8 h-8" />
-          <Text className="text-xl">Select Team</Text>
-          <View className="flex-1" />
-          <Icon as={ChevronRight} className="w-8 h-8" />
-        </View>
+        <Row style={styles.row}>
+          <ShieldEllipsis size={32} />
+          <Text style={styles.action}>Select Team</Text>
+          <Spacer />
+          <ChevronRight size={32} />
+        </Row>
       </TouchableOpacity>
-      <Divider />
       <TouchableOpacity onPress={onPressSignOut}>
-        <View className="flex-row items-center gap-4 p-4">
-          <Icon as={LogOut} className="w-8 h-8 text-error-500" />
-          <Text className="text-xl text-error-500 font-bold">Sign Out</Text>
-        </View>
+        <Row style={styles.row}>
+          <LogOut size={32} color="red" />
+          <Text style={[styles.action, styles.signOut]}>Sign Out</Text>
+        </Row>
       </TouchableOpacity>
-      <Divider />
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create((theme, rt) => ({
+  container: {
+    flex: 1,
+    paddingTop: theme.gap.md,
+  },
+  row: {
+    padding: theme.gap.md,
+  },
+  action: {
+    fontSize: theme.fontSize.md,
+    fontWeight: theme.fontWeight.medium,
+  },
+  signOut: {
+    fontWeight: theme.fontWeight.bold,
+    color: "red",
+  },
+}));

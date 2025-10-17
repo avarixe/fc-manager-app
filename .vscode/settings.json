@@ -3,11 +3,5 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  },
-  "tailwindCSS.experimental.classRegex": [
-    [
-      "tva\\((([^()]*|\\([^()]*\\))*)\\)",
-      "[\"'`]([^\"'`]*).*?[\"'`]"
-    ]
-  ]
+  }
 }

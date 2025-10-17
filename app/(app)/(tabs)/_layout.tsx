@@ -1,6 +1,5 @@
 import { teamAtom } from "@/atoms";
-import SettingsButton from "@/components/navigation/settings-button";
-import { Icon } from "@/components/ui/icon";
+import { SettingsButton } from "@/components/common";
 import { Tabs } from "expo-router";
 import { useAtomValue } from "jotai";
 import { Calendar, LayoutDashboard, Swords, User } from "lucide-react-native";
@@ -21,30 +20,28 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Dashboard",
-          tabBarIcon: ({ color }) => (
-            <Icon as={LayoutDashboard} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <LayoutDashboard color={color} />,
         }}
       />
       <Tabs.Screen
         name="players"
         options={{
           title: "Players",
-          tabBarIcon: ({ color }) => <Icon as={User} color={color} />,
+          tabBarIcon: ({ color }) => <User color={color} />,
         }}
       />
       <Tabs.Screen
         name="matches"
         options={{
           title: "Matches",
-          tabBarIcon: ({ color }) => <Icon as={Swords} color={color} />,
+          tabBarIcon: ({ color }) => <Swords color={color} />,
         }}
       />
       <Tabs.Screen
         name="[season]"
         options={{
           title: "Season",
-          tabBarIcon: ({ color }) => <Icon as={Calendar} color={color} />,
+          tabBarIcon: ({ color }) => <Calendar color={color} />,
         }}
       />
     </Tabs>

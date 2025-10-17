@@ -1,5 +1,5 @@
 import { teamAtom } from "@/atoms";
-import SettingsButton from "@/components/navigation/settings-button";
+import { SettingsButton } from "@/components/common";
 import { Stack } from "expo-router";
 import { useAtomValue } from "jotai";
 import React from "react";

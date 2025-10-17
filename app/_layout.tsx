@@ -1,19 +1,14 @@
 import { sessionAtom } from "@/atoms";
-import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
-import "@/global.css";
 import { supabase } from "@/utils/supabase";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Provider as JotaiProvider, useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import "react-native-reanimated";
 
 export default function Root() {
   return (
     <JotaiProvider>
-      <GluestackUIProvider>
-        <RootNavigator />
-      </GluestackUIProvider>
+      <RootNavigator />
     </JotaiProvider>
   );
 }

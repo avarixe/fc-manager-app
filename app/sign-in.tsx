@@ -1,11 +1,11 @@
-import { Heading } from "@/components/ui/heading";
 import { supabase } from "@/utils/supabase";
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from "@react-native-google-signin/google-signin";
-import { View } from "react-native";
+import { Text, View } from "react-native";
+import { StyleSheet } from "react-native-unistyles";
 
 export default function SignIn() {
   GoogleSignin.configure({
@@ -14,10 +14,8 @@ export default function SignIn() {
   });
 
   return (
-    <View className="flex-1 justify-center items-center">
-      <Heading size="2xl" className="mb-4">
-        MyFC Manager
-      </Heading>
+    <View style={styles.container}>
+      <Text style={styles.title}>MyFC Manager</Text>
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
@@ -50,3 +48,16 @@ export default function SignIn() {
     </View>
   );
 }
+
+const styles = StyleSheet.create((theme) => ({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: theme.fontSize.xl,
+    fontWeight: theme.fontWeight.bold,
+    marginBottom: theme.gap.md,
+  },
+}));

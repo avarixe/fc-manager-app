@@ -1,12 +1,12 @@
 import { router } from "expo-router";
-import { Settings } from "lucide-react-native";
+import { LucideProps, Settings } from "lucide-react-native";
 import { memo } from "react";
 import { TouchableOpacity } from "react-native";
 
-export const SettingsButton = memo(() => {
+export const SettingsButton = memo((props: LucideProps) => {
   return (
     <TouchableOpacity onPress={() => router.push("/settings")}>
-      <Settings />
+      <Settings {...props} />
     </TouchableOpacity>
   );
 });

@@ -14,6 +14,9 @@ export default function TabLayout() {
         headerTitle: team?.name,
         headerTitleAlign: "center",
         headerRight: () => <SettingsButton />,
+        headerRightContainerStyle: {
+          paddingRight: 16,
+        },
       }}
     >
       <Tabs.Screen

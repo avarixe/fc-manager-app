@@ -24,6 +24,7 @@ export default function TabLayout() {
         options={{
           title: "Dashboard",
           tabBarIcon: ({ color }) => <LayoutDashboard color={color} />,
+          href: "/",
         }}
       />
       <Tabs.Screen
@@ -31,6 +32,7 @@ export default function TabLayout() {
         options={{
           title: "Players",
           tabBarIcon: ({ color }) => <User color={color} />,
+          href: "/players",
         }}
       />
       <Tabs.Screen
@@ -38,6 +40,7 @@ export default function TabLayout() {
         options={{
           title: "Matches",
           tabBarIcon: ({ color }) => <Swords color={color} />,
+          href: "/matches",
         }}
       />
       <Tabs.Screen
@@ -45,6 +48,7 @@ export default function TabLayout() {
         options={{
           title: "Season",
           tabBarIcon: ({ color }) => <Calendar color={color} />,
+          href: "/[season]",
         }}
       />
     </Tabs>

@@ -1,30 +1,21 @@
-import { teamAtom } from "@/atoms";
-import { SettingsButton } from "@/components/common";
 import { Tabs } from "expo-router";
-import { useAtomValue } from "jotai";
 import { Calendar, LayoutDashboard, Swords, User } from "lucide-react-native";
 import React from "react";
 
 export default function TabLayout() {
-  const team = useAtomValue(teamAtom);
-
   return (
-    <Tabs
-      screenOptions={{
-        headerTitle: team?.name,
-        headerTitleAlign: "center",
-        headerRight: () => <SettingsButton />,
-        headerRightContainerStyle: {
-          paddingRight: 16,
-        },
-      }}
-    >
+    <Tabs initialRouteName="dashboard" screenOptions={{ headerShown: false }}>
       <Tabs.Screen
         name="index"
         options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="dashboard"
+        options={{
           title: "Dashboard",
           tabBarIcon: ({ color }) => <LayoutDashboard color={color} />,
-          href: "/",
         }}
       />
       <Tabs.Screen

@@ -1,9 +1,5 @@
-import { Text, View } from "react-native";
+import { Redirect } from "expo-router";
 
-export default function DashboardScreen() {
-  return (
-    <View>
-      <Text>Dashboard</Text>
-    </View>
-  );
+export default function TabsIndex() {
+  return <Redirect href="/dashboard" />;
 }

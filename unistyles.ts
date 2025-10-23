@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native-unistyles";
 
 const lightTheme = {
+  name: "light",
   colors: {
     background: "#FFFFFF",
     foreground: "#1A1722",
@@ -68,6 +69,7 @@ const lightTheme = {
 } as const;
 
 const darkTheme = {
+  name: "dark",
   colors: {
     background: "#1A1722",
     foreground: "#FAFAFA",

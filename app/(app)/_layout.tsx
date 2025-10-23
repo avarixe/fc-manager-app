@@ -3,12 +3,19 @@ import { SettingsButton } from "@/components/common";
 import { Stack } from "expo-router";
 import { useAtomValue } from "jotai";
 import React from "react";
+import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
 export default function AppLayout() {
+  const { theme } = useUnistyles();
   const team = useAtomValue(teamAtom);
 
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerStyle: styles.header,
+        headerTintColor: theme.colors.foreground,
+      }}
+    >
       <Stack.Protected guard={!!team}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack.Protected>
@@ -42,3 +49,9 @@ export default function AppLayout() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create((theme) => ({
+  header: {
+    backgroundColor: theme.colors.background,
+  },
+}));

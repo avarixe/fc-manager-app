@@ -1,15 +1,8 @@
 import { sessionAtom, teamAtom } from "@/atoms";
-import { Column, Row, Spacer } from "@/components/ui";
+import { Column, Icon, Row, Spacer } from "@/components/ui";
 import { supabase } from "@/utils/supabase";
 import { router } from "expo-router";
 import { useAtom, useSetAtom } from "jotai";
-import {
-  ChevronRight,
-  LogOut,
-  MoonStar,
-  ShieldEllipsis,
-  Sun,
-} from "lucide-react-native";
 import {
   ScrollView,
   Text,
@@ -25,7 +18,7 @@ import {
 export default function SettingsModal() {
   const setSession = useSetAtom(sessionAtom);
   const [team, setTeam] = useAtom(teamAtom);
-  const { theme, rt } = useUnistyles();
+  const { theme } = useUnistyles();
 
   const setTheme = (newTheme: "light" | "dark") => {
     UnistylesRuntime.setAdaptiveThemes(false);
@@ -45,29 +38,36 @@ export default function SettingsModal() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <TouchableOpacity onPress={() => router.push("/select-team")}>
+      <TouchableOpacity
+        onPress={() => router.push("/select-team")}
+        style={styles.touchable}
+      >
         <Row style={styles.row}>
-          <ShieldEllipsis size={32} color={theme.colors.foreground} />
+          <Icon name="shield-ellipsis" size={32} />
           <Text style={styles.action}>Select Team</Text>
           <Spacer />
-          <ChevronRight size={32} color={theme.colors.foreground} />
+          <Icon name="chevron-right" size={32} />
         </Row>
       </TouchableOpacity>
-      <Row style={styles.row}>
+      <Row>
         <ThemeButton
           mode="light"
           onPress={() => setTheme("light")}
-          disabled={theme.name === "light"}
+          isSelected={theme.name === "light"}
         />
         <ThemeButton
           mode="dark"
           onPress={() => setTheme("dark")}
-          disabled={theme.name === "dark"}
+          isSelected={theme.name === "dark"}
         />
       </Row>
-      <TouchableOpacity onPress={onPressSignOut}>
+      <Spacer />
+      <TouchableOpacity
+        onPress={onPressSignOut}
+        style={[styles.touchable, styles.signOutTouchable]}
+      >
         <Row style={styles.row}>
-          <LogOut size={32} color={theme.colors.destructive} />
+          <Icon name="log-out" size={32} color="destructive" />
           <Text style={[styles.action, styles.signOut]}>Sign Out</Text>
         </Row>
       </TouchableOpacity>
@@ -78,21 +78,20 @@ export default function SettingsModal() {
 const ThemeButton: React.FC<
   TouchableOpacityProps & {
     mode: "light" | "dark";
+    isSelected: boolean;
   }
-> = ({ mode, disabled, ...props }) => {
-  const { theme } = useUnistyles();
-
-  styles.useVariants({
-    disabled,
-  });
+> = ({ mode, isSelected, ...props }) => {
+  styles.useVariants({ isSelected });
 
   return (
-    <TouchableOpacity style={styles.themeButton} disabled={disabled} {...props}>
+    <TouchableOpacity
+      style={styles.themeButton}
+      disabled={isSelected}
+      {...props}
+    >
       <Column style={{ alignItems: "center" }}>
-        {mode === "light" && <Sun size={32} color={theme.colors.foreground} />}
-        {mode === "dark" && (
-          <MoonStar size={32} color={theme.colors.foreground} />
-        )}
+        {mode === "light" && <Icon name="sun" size={32} />}
+        {mode === "dark" && <Icon name="moon-star" size={32} />}
         <Text style={styles.themeButtonText}>{mode} Mode</Text>
       </Column>
     </TouchableOpacity>
@@ -102,8 +101,19 @@ const ThemeButton: React.FC<
 const styles = StyleSheet.create((theme, rt) => ({
   container: {
     flex: 1,
-    paddingTop: theme.gap.md,
+    paddingHorizontal: theme.gap.md,
+    paddingTop: theme.gap.xl,
+    paddingBottom: rt.insets.bottom + theme.gap.xl,
     backgroundColor: theme.colors.background,
+  },
+  touchable: {
+    borderRadius: theme.borderRadius.md,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
+  },
+  signOutTouchable: {
+    borderColor: theme.colors.destructive,
   },
   row: {
     padding: theme.gap.md,
@@ -120,15 +130,17 @@ const styles = StyleSheet.create((theme, rt) => ({
   themeButton: {
     borderRadius: theme.borderRadius.md,
     padding: theme.gap.lg,
+    marginVertical: theme.gap.md,
     flexGrow: 1,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.card,
     alignItems: "center",
     variants: {
-      disabled: {
+      isSelected: {
         true: {
-          opacity: 0.5,
+          borderColor: theme.colors.primary,
+          boxShadow: `0 0 2px 2px ${theme.colors.primary}`,
         },
       },
     },

@@ -1,4 +1,5 @@
-import { ScrollView, Text } from "react-native";
+import { Text } from "@/components/ui";
+import { ScrollView } from "react-native";
 
 export default function TeamFormModal() {
   return (

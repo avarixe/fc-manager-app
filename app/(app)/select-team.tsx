@@ -1,13 +1,12 @@
 import { teamAtom } from "@/atoms";
-import { Column, Row } from "@/components/ui";
+import { Column, Divider, Icon, Row, Text } from "@/components/ui";
 import { Tables } from "@/database-generated.types";
 import { formatDate } from "@/utils/format";
 import { supabase } from "@/utils/supabase";
 import { router, useNavigation } from "expo-router";
 import { useSetAtom } from "jotai";
-import { CirclePlus, Shield } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { FlatList, Image, Text, TouchableOpacity } from "react-native";
+import { FlatList, Image, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 
 export default function SelectTeamScreen() {
@@ -49,18 +48,18 @@ export default function SelectTeamScreen() {
 
   const renderItem = ({ item }: { item: Tables<"teams"> }) => (
     <TouchableOpacity onPress={() => onPressTeam(item)}>
-      <Row style={styles.row}>
+      <Row style={styles.teamRow}>
         {item.badge_path ? (
           <Image source={{ uri: item.badge_path }} style={styles.image} />
         ) : (
-          <Shield size={48} />
+          <Icon name="shield" size={48} />
         )}
         <Column gap="none">
-          <Text style={styles.title}>{item.name}</Text>
-          <Text>
+          <Text weight="semibold">{item.name}</Text>
+          <Text size="xs">
             {item.manager_name} · {formatDate(item.created_at)}
           </Text>
-          <Text>
+          <Text size="xs">
             {formatDate(item.started_on, "yyyy")} -{" "}
             {formatDate(item.currently_on, "yyyy")}
           </Text>
@@ -76,36 +75,46 @@ export default function SelectTeamScreen() {
       data={teams}
       renderItem={renderItem}
       keyExtractor={(item) => String(item.id)}
-      // ItemSeparatorComponent={() => <Divider />}
+      ItemSeparatorComponent={() => <Divider />}
       ListFooterComponent={
         <>
-          {/* <Divider /> */}
-          <TouchableOpacity
-            onPress={() => router.push("/team-form")}
-            style={styles.row}
-          >
-            <Row>
-              <CirclePlus />
-              <Text>Add Team</Text>
+          <Divider />
+          <TouchableOpacity onPress={() => router.push("/team-form")}>
+            <Row style={styles.addTeamRow}>
+              <Icon name="circle-plus" size={32} />
+              <Text weight="medium">Add Team</Text>
             </Row>
           </TouchableOpacity>
         </>
       }
+      style={styles.screen}
     />
   );
 }
 
-const styles = StyleSheet.create((theme) => ({
-  row: {
-    marginHorizontal: theme.gap.md,
-    marginVertical: theme.gap.sm,
+const styles = StyleSheet.create((theme, rt) => ({
+  screen: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+    paddingTop: theme.gap.xl,
+    paddingHorizontal: theme.gap.md,
+    paddingBottom: rt.insets.bottom + theme.gap.xl,
+  },
+  teamRow: {
+    padding: theme.gap.sm,
   },
   image: {
     width: 48,
     height: 48,
     borderRadius: theme.borderRadius.full,
   },
-  title: {
-    fontWeight: theme.fontWeight.medium,
+  addTeamRow: {
+    marginTop: theme.gap.md,
+    justifyContent: "center",
+    padding: theme.gap.sm,
+    borderRadius: theme.borderRadius.md,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
   },
 }));

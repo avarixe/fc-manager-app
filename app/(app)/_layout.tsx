@@ -11,6 +11,7 @@ export default function AppLayout() {
 
   return (
     <Stack
+      key={theme.name}
       screenOptions={{
         headerStyle: styles.header,
         headerTintColor: theme.colors.foreground,

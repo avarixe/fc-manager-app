@@ -1,13 +1,12 @@
+import { Icon, IconProps } from "@/components/ui";
 import { router } from "expo-router";
-import { LucideProps, Settings } from "lucide-react-native";
-import { memo } from "react";
 import { TouchableOpacity } from "react-native";
 
-export const SettingsButton = memo((props: LucideProps) => {
+export const SettingsButton: React.FC<Omit<IconProps, "name">> = (props) => {
   return (
     <TouchableOpacity onPress={() => router.push("/settings")}>
-      <Settings {...props} />
+      <Icon name="settings" {...props} />
     </TouchableOpacity>
   );
-});
+};
 SettingsButton.displayName = "SettingsButton";

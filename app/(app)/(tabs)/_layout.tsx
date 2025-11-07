@@ -1,10 +1,32 @@
 import { Tabs } from "expo-router";
-import { Calendar, LayoutDashboard, Swords, User } from "lucide-react-native";
+import {
+  Calendar,
+  ClipboardList,
+  LayoutDashboard,
+  Swords,
+  User,
+} from "lucide-react-native";
 import React from "react";
+import { useUnistyles } from "react-native-unistyles";
 
 export default function TabLayout() {
+  const { theme } = useUnistyles();
+
   return (
-    <Tabs initialRouteName="dashboard" screenOptions={{ headerShown: false }}>
+    <Tabs
+      initialRouteName="dashboard"
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: theme.colors.background,
+        },
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.mutedForeground,
+        tabBarLabelStyle: {
+          fontSize: theme.fontSize.xs,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -40,6 +62,14 @@ export default function TabLayout() {
           title: "Season",
           tabBarIcon: ({ color }) => <Calendar color={color} />,
           href: "/[season]",
+        }}
+      />
+      <Tabs.Screen
+        name="squads"
+        options={{
+          title: "Squads",
+          tabBarIcon: ({ color }) => <ClipboardList color={color} />,
+          href: "/squads",
         }}
       />
     </Tabs>

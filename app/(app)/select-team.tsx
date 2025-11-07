@@ -1,6 +1,6 @@
 import { teamAtom } from "@/atoms";
 import { Column, Divider, Icon, Row, Text } from "@/components/ui";
-import { Tables } from "@/database-generated.types";
+import { Team } from "@/types";
 import { formatDate } from "@/utils/format";
 import { supabase } from "@/utils/supabase";
 import { router, useNavigation } from "expo-router";
@@ -10,7 +10,7 @@ import { FlatList, Image, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native-unistyles";
 
 export default function SelectTeamScreen() {
-  const [teams, setTeams] = useState<Tables<"teams">[]>([]);
+  const [teams, setTeams] = useState<Team[]>([]);
   useEffect(() => {
     const fetchTeams = async () => {
       const { data, error } = await supabase
@@ -41,12 +41,12 @@ export default function SelectTeamScreen() {
   }, [navigation]);
 
   const setTeam = useSetAtom(teamAtom);
-  const onPressTeam = (team: Tables<"teams">) => {
+  const onPressTeam = (team: Team) => {
     setTeam(team);
     router.push("/");
   };
 
-  const renderItem = ({ item }: { item: Tables<"teams"> }) => (
+  const renderItem = ({ item }: { item: Team }) => (
     <TouchableOpacity onPress={() => onPressTeam(item)}>
       <Row style={styles.teamRow}>
         {item.badge_path ? (
@@ -96,6 +96,8 @@ const styles = StyleSheet.create((theme, rt) => ({
   screen: {
     flex: 1,
     backgroundColor: theme.colors.background,
+  },
+  container: {
     paddingTop: theme.gap.xl,
     paddingHorizontal: theme.gap.md,
     paddingBottom: rt.insets.bottom + theme.gap.xl,

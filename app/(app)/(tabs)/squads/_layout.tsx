@@ -3,7 +3,7 @@ import { Stack } from "expo-router";
 import React from "react";
 import { StyleSheet, useUnistyles } from "react-native-unistyles";
 
-export default function MatchesLayout() {
+export default function SquadsLayout() {
   const { theme } = useUnistyles();
 
   return (
@@ -18,7 +18,7 @@ export default function MatchesLayout() {
       <Stack.Screen
         name="index"
         options={{
-          title: "Matches",
+          title: "Squads",
         }}
       />
     </Stack>

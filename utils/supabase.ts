@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createClient, processLock } from "@supabase/supabase-js";
 import { AppState } from "react-native";
 
-import { Database } from "@/database-generated.types";
+import { Database } from "@/database.types";
 import { assertDefined } from "@/utils/assert";
 
 assertDefined(process.env.EXPO_PUBLIC_SUPABASE_URL);
